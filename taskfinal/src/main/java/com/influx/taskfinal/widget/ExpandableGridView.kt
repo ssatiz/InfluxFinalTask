@@ -5,9 +5,8 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import com.influx.taskfinal.R
-import com.influx.taskfinal.data.Info
+import com.influx.taskfinal.data.TimingsItem
 import java.util.*
 
 /**
@@ -20,7 +19,7 @@ class ExpandableGridView(private val mContext: Context) : LinearLayout(mContext,
 
     private var mChildClickListener: CustomLayout.CustomChildClickListener? = null
 
-    var bookingTimeList = ArrayList<Info>()
+    var bookingTimeList = ArrayList<TimingsItem>()
     private var viewHeight: Int = 0
     private val verticalViewWidth = 1
     private var mItemViewClickListener: ItemViewClickListener? = null
@@ -65,7 +64,7 @@ class ExpandableGridView(private val mContext: Context) : LinearLayout(mContext,
         }
     }
 
-    fun refreshIconInfoList(iconInfoList: ArrayList<Info>) {
+    fun refreshIconInfoList(iconInfoList: List<TimingsItem>) {
         this.bookingTimeList.clear()
         this.bookingTimeList.addAll(iconInfoList)
         refreshViewUI()
@@ -79,6 +78,7 @@ class ExpandableGridView(private val mContext: Context) : LinearLayout(mContext,
             LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
         val verticalParams = LinearLayout.LayoutParams(verticalViewWidth, LinearLayout.LayoutParams.FILL_PARENT)
         val horizontalParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, verticalViewWidth)
+
         for (rowIndex in 0 until rowNum) {
             val rowView = View.inflate(mContext, R.layout.gridview_above_rowview, null)
 
@@ -94,8 +94,8 @@ class ExpandableGridView(private val mContext: Context) : LinearLayout(mContext,
             gridViewNoScroll.setParentView(llBtm)
 
             val itemParam = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
             )
             itemParam.weight = 1.0f
             val itemClickLitener = ItemViewClickListener(llBtm, ivOpenFlag, object : ItemViewClickInterface {
@@ -110,7 +110,6 @@ class ExpandableGridView(private val mContext: Context) : LinearLayout(mContext,
                     val childList = iconInfo
 
                     if (iconInfo.expand > 0) {
-
                         gridViewNoScroll.refreshDataSet(childList)
                     } else {
                         setViewCollaps()

@@ -10,14 +10,15 @@ import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
+import android.widget.TextView
 import com.influx.taskfinal.R
-import com.influx.taskfinal.data.Info
+import com.influx.taskfinal.data.TimingsItem
 import java.util.*
 
 class CustomLayout : LinearLayout {
 
     private var mContext: Context? = null
-    private val mPlayList = ArrayList<Info>()
+    private val mPlayList = ArrayList<TimingsItem>()
     private var viewHeight: Int = 0
     private var viewWidth: Int = 0
     private var mParentView: LinearLayout? = null
@@ -51,7 +52,7 @@ class CustomLayout : LinearLayout {
         initView(context)
     }
 
-    fun refreshDataSet(playList: Info) {
+    fun refreshDataSet(playList: TimingsItem) {
         mPlayList.clear()
         mPlayList.add(playList)
 //        mPlayList.addAll(playList)
@@ -152,18 +153,33 @@ class CustomLayout : LinearLayout {
 //        val adapter = SeatAdapter()
 //        recyclerView.adapter = adapter
 
-        val lnrContent = superChild.findViewById<LinearLayout>(R.id.lnrContent)
-        val layout = LinearLayout(mContext)
-        for (i in 0 until 120){
-           layout.addView(LayoutInflater.from(mContext).inflate(R.layout.seat, layout, false))
-            if (i % 12 == 0){
-                lnrContent.addView(layout)
-                layout.removeAllViews()
+        val lnrContent = superChild.findViewById<LinearLayout>(R.id.lnrRows)
+        mPlayList[0].seats?.let {
+            for (i in 0 until it.size){
+                val viewRows = LayoutInflater.from(mContext).inflate(R.layout.layout_rows,
+                        lnrContent, false)
+                val lnrSeats = viewRows.findViewById<LinearLayout>(R.id.lnrSeats)
+                val lblRowStart = viewRows.findViewById<TextView>(R.id.lblRowStart)
+                lblRowStart.text = it[i].rowName
+                val lblRowEnd = viewRows.findViewById<TextView>(R.id.lblRowEnd)
+                lblRowEnd.text = it[i].rowName
+                it[i].seats?.let { seats -> run {
+                    for (j in 0 until seats.size) {
+                        val viewSeat = LayoutInflater.from(mContext).inflate(R.layout.seat,
+                                lnrSeats, false)
+                        lnrSeats.addView(viewSeat)
+                    }
+                }
+                    lnrContent.addView(viewRows)
+
+                }
+
             }
         }
 
 
-        createChildHeightAnimator(mParentView, height, (root.measuredHeight * 2))
+
+        createChildHeightAnimator(mParentView, height, (root.measuredHeight * 6))
     }
 
     fun disablePreview(previewButton: RelativeLayout) {
