@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/black">
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@mipmap/ic_launcher_round"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="20dp"
+                android:layout_alignParentTop="true"
+                android:id="@+id/imageView"
+                android:layout_marginTop="20dp"/>
+
+        <TextView
+                android:text="TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView3"
+                android:layout_marginStart="46dp"
+                android:layout_marginTop="47dp"
+                android:layout_toEndOf="@+id/imageView"
+                android:textColor="@android:color/holo_red_dark"
+                android:textStyle="bold"
+                android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle"/>
+
+        <TextView
+                android:text="TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView4"
+                android:layout_marginTop="32dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="20dp"
+                android:layout_below="@+id/imageView"
+                android:textColor="@android:color/holo_red_dark"
+                android:textStyle="bold"
+                android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle"/>
+
+        <com.influx.influxtask.widget.ExpandableGridView
+                android:id="@+id/country_grid"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/black"
+                android:verticalSpacing="5dp"
+                android:horizontalSpacing="5dp"
+                android:columnWidth="80dp"
+                android:stretchMode="columnWidth"
+                android:numColumns="auto_fit"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="8dp"
+                android:layout_below="@+id/textView4"
+                android:layout_marginStart="0dp"/>
+    </RelativeLayout>
+</ScrollView>
